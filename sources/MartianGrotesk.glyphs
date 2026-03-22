@@ -3,7 +3,7 @@
 .formatVersion = 3;
 DisplayStrings = (
 "¢",
-"/cent.bold"
+$
 );
 axes = (
 {
@@ -160845,7 +160845,7 @@ unicode = 8470;
 glyphname = cent;
 kernLeft = cent_left;
 kernRight = cent_right;
-lastChange = "2026-03-21 22:29:02 +0000";
+lastChange = "2026-03-24 14:01:17 +0000";
 layers = (
 {
 layerId = m01;
@@ -161021,6 +161021,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161045,6 +161046,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161069,6 +161071,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161093,6 +161096,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161117,6 +161121,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161141,6 +161146,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161165,6 +161171,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161189,6 +161196,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161213,6 +161221,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161237,6 +161246,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161261,6 +161271,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161285,6 +161296,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161473,7 +161485,7 @@ unicode = 164;
 glyphname = dollar;
 kernLeft = dollar_left;
 kernRight = dollar_right;
-lastChange = "2026-03-21 22:22:55 +0000";
+lastChange = "2026-03-24 14:00:42 +0000";
 layers = (
 {
 layerId = m01;
@@ -161684,6 +161696,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161711,6 +161724,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161738,6 +161752,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161765,6 +161780,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161792,6 +161808,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161819,6 +161836,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161846,6 +161864,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161873,6 +161892,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161900,6 +161920,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161927,6 +161948,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161954,6 +161976,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
@@ -161981,6 +162004,7 @@ axisRules = (
 min = 150;
 },
 {
+max = 7;
 }
 );
 };
