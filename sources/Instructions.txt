@@ -71,18 +71,11 @@ To move from one version to the other, this is the process:
 
 ** BUILD **
 
-Setup (once):
+From the repo root:
 
-	cd sources
-	python3 -m venv venv
-	source venv/bin/activate
-	pip install -r ../requirements.txt
+	sources/build.sh
 
-Build:
-
-	cd sources
-	source venv/bin/activate
-	python build.py
+This creates a venv (if needed), installs deps, and runs build.py.
 
 Use build.py instead of running `gftools builder config.yaml` directly.
 
