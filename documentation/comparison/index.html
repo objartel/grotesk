@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martian Grotesk: Old vs GF Build Comparison</title>
+<style id="dynamicFonts">
+@font-face {
+  font-family: "MartianOld";
+  src: url("MartianGrotesk-old.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "MartianNew";
+  src: url("MartianGrotesk-new.ttf") format("truetype");
+  font-display: swap;
+}
+</style>
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+comparison-app, fs-viewer, source-toggle, var-controls, static-controls,
+size-control, filter-control, glyph-grid, view-tabs, text-preview { display: contents; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  padding: 24px;
+}
+
+h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: #888; margin-bottom: 20px; }
+
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0a0a0a;
+  padding: 16px 0;
+  border-bottom: 1px solid #222;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: end;
+}
+
+.control-group { display: flex; flex-direction: column; gap: 4px; }
+.control-group label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.control-group input[type="range"] { width: 200px; accent-color: #6e6; }
+.control-group .value { font-size: 13px; font-variant-numeric: tabular-nums; }
+
+.source-toggle { display: flex; gap: 4px; }
+.source-toggle button {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.source-toggle button.active { background: #222; border-color: #555; color: #fff; }
+.source-toggle button:hover { border-color: #555; }
+
+.control-group select {
+  background: #111;
+  color: #ccc;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.control-group select:hover { border-color: #555; }
+
+.hidden { display: none !important; }
+
+.filter-buttons { display: flex; gap: 6px; }
+.filter-buttons button {
+  padding: 4px 12px;
+  font-size: 12px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.filter-buttons button.active { background: #222; border-color: #555; color: #fff; }
+.filter-buttons button:hover { border-color: #555; }
+
+.stats {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  gap: 16px;
+  align-self: end;
+  padding-bottom: 2px;
+}
+.stats span { white-space: nowrap; }
+.stats .new-count { color: #6e6; }
+
+.block-section { margin-bottom: 32px; }
+.block-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #aaa;
+  padding: 6px 0;
+  border-bottom: 1px solid #1a1a1a;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 80px;
+  background: #0a0a0a;
+  z-index: 50;
+}
+.block-title .count { font-weight: 400; color: #555; font-size: 12px; }
+
+.glyph-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 2px;
+}
+
+.glyph-cell {
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 4px;
+  padding: 4px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+.glyph-cell:hover { border-color: #444; }
+.glyph-cell.new-only { border-color: #264026; }
+.glyph-cell.diff { border-color: #664400; }
+
+.glyph-cp {
+  font-size: 9px;
+  color: #555;
+  font-family: monospace;
+  margin-bottom: 2px;
+}
+.glyph-cp .name { display: block; color: #444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.glyph-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.glyph-render {
+  font-size: var(--glyph-size, 32px);
+  font-variation-settings: var(--vs);
+  line-height: 1.3;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.glyph-render.old {
+  font-family: "MartianOld", sans-serif;
+  background: #0d0d0d;
+}
+.glyph-render.new {
+  font-family: "MartianNew", sans-serif;
+  background: #0d0d0d;
+}
+
+.glyph-cell.new-only .glyph-render.old { color: #333; }
+.glyph-cell.new-only .glyph-render.old::after { content: "n/a"; font-size: 9px; font-family: monospace; }
+
+.pair-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 1px;
+}
+.pair-labels span {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #444;
+  text-align: center;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 16px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.legend-swatch.both { border-color: #1a1a1a; background: #111; }
+.legend-swatch.new-only { border-color: #264026; background: #111; }
+
+.view-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.view-tabs button {
+  padding: 6px 16px;
+  font-size: 13px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.view-tabs button.active { background: #222; border-color: #555; color: #fff; }
+.view-tabs button:hover { border-color: #555; }
+
+.text-preview-controls {
+  margin-bottom: 12px;
+}
+.text-preview-controls select {
+  background: #111;
+  color: #ccc;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.text-preview-controls select:hover { border-color: #555; }
+
+.text-preview textarea {
+  width: 100%;
+  min-height: 100px;
+  background: #111;
+  color: #e0e0e0;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: system-ui, -apple-system, sans-serif;
+  resize: vertical;
+  margin-bottom: 16px;
+}
+.text-preview textarea:focus { outline: none; border-color: #555; }
+.text-preview textarea::placeholder { color: #555; }
+
+.text-preview-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.text-panel {
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.text-panel-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #444;
+  padding: 8px 16px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.text-panel-content {
+  padding: 24px;
+  font-size: var(--glyph-size, 28px);
+  line-height: 1.5;
+  font-variation-settings: var(--vs);
+  min-height: 200px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.text-panel-content.old { font-family: "MartianOld", sans-serif; }
+.text-panel-content.new { font-family: "MartianNew", sans-serif; }
+.text-panel-content .new-char { background: #1a2e1a; border-radius: 2px; }
+
+.font-size-control { display: flex; align-items: center; gap: 8px; }
+.font-size-control button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.font-size-control button:hover { border-color: #555; }
+
+.fullscreen-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #0a0a0a;
+  padding: 24px;
+}
+.fullscreen-overlay.open { display: flex; flex-direction: column; }
+
+.fs-header {
+  flex-shrink: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #222;
+}
+
+.fs-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.fs-title { font-size: 18px; font-weight: 600; }
+.fs-title .cp { color: #888; font-family: monospace; font-size: 14px; margin-left: 8px; }
+.fs-title .block-name { color: #555; font-size: 13px; font-weight: 400; margin-left: 12px; }
+.fs-title .new-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6e6;
+  border: 1px solid #264026;
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.fs-close {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.fs-close:hover { border-color: #555; color: #fff; }
+
+.fs-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: end;
+}
+
+.fs-nav {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.fs-nav button {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.fs-nav button:hover { border-color: #555; color: #fff; }
+.fs-nav span { font-size: 11px; color: #555; }
+
+.fs-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  min-height: 0;
+  padding-top: 24px;
+}
+
+.fs-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+  position: relative;
+}
+
+.fs-side-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #444;
+}
+
+.fs-glyph {
+  font-size: 200px;
+  line-height: 1;
+}
+
+.fs-side.old .fs-glyph { font-family: "MartianOld", sans-serif; }
+.fs-side.new .fs-glyph { font-family: "MartianNew", sans-serif; }
+
+.fs-side.old.unavailable .fs-glyph { display: none; }
+.fs-side.old.unavailable::after {
+  content: "not in old font";
+  font-size: 14px;
+  color: #333;
+  font-family: system-ui, sans-serif;
+}
+
+.fs-body.overlay-mode {
+  grid-template-columns: 1fr;
+}
+.fs-body.overlay-mode .fs-side {
+  grid-row: 1;
+  grid-column: 1;
+}
+.fs-body.overlay-mode .fs-side.old {
+  background: transparent;
+  border-color: transparent;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+.fs-body.overlay-mode .fs-side.old .fs-glyph { color: #e44; }
+.fs-body.overlay-mode .fs-side.old .fs-side-label { color: #e44; }
+.fs-body.overlay-mode .fs-side.new {
+  z-index: 1;
+}
+.fs-body.overlay-mode .fs-side.new .fs-glyph { color: #48f; }
+.fs-body.overlay-mode .fs-side.new .fs-side-label { color: #48f; }
+
+.fs-mode-toggle {
+  display: flex;
+  gap: 4px;
+}
+.fs-mode-toggle button {
+  padding: 4px 10px;
+  font-size: 12px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.fs-mode-toggle button.active { background: #222; border-color: #555; color: #fff; }
+.fs-mode-toggle button:hover { border-color: #555; }
+
+.overlay-legend {
+  display: none;
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #666;
+  gap: 16px;
+  z-index: 10;
+}
+.fs-body.overlay-mode ~ .overlay-legend,
+.overlay-legend.visible { display: flex; }
+.overlay-legend .ol-item { display: flex; align-items: center; gap: 6px; }
+.overlay-legend .ol-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.overlay-legend .ol-swatch.old-color { background: #e44; }
+.overlay-legend .ol-swatch.new-color { background: #48f; }
+.overlay-legend .ol-swatch.match-color { background: #c4f; }
+</style>
+</head>
+<body>
+
+<comparison-app>
+  <h1>Martian Grotesk: Designer vs GF Build</h1>
+  <p class="subtitle">Side-by-side glyph comparison. Left = old (designer), Right = new (GF build).</p>
+
+  <div class="controls">
+    <source-toggle>
+      <div class="control-group">
+        <label>Font source</label>
+        <div class="source-toggle" data-ref="toggle">
+          <button class="active" data-src="variable">Variable</button>
+          <button data-src="static">Static</button>
+        </div>
+      </div>
+    </source-toggle>
+    <var-controls>
+      <div class="control-group">
+        <label>Weight <span class="value" data-ref="wghtVal">400</span></label>
+        <input type="range" data-ref="wght" min="100" max="1000" value="400" step="1">
+      </div>
+      <div class="control-group">
+        <label>Width <span class="value" data-ref="wdthVal">100</span></label>
+        <input type="range" data-ref="wdth" min="75" max="200" value="100" step="1">
+      </div>
+    </var-controls>
+    <static-controls class="hidden">
+      <div class="control-group">
+        <label>Width</label>
+        <select data-ref="width"></select>
+      </div>
+      <div class="control-group">
+        <label>Weight</label>
+        <select data-ref="weight"></select>
+      </div>
+    </static-controls>
+    <size-control min="16" max="72" step="4">
+      <div class="control-group">
+        <label>Glyph size</label>
+        <div class="font-size-control">
+          <button data-ref="down">-</button>
+          <span class="value" data-ref="val">32</span>
+          <button data-ref="up">+</button>
+        </div>
+      </div>
+    </size-control>
+    <filter-control>
+      <div class="control-group">
+        <label>Filter</label>
+        <div class="filter-buttons" data-ref="buttons">
+          <button class="active" data-filter="all">All (662)</button>
+          <button data-filter="both">Shared (522)</button>
+          <button data-filter="new">New only (140)</button>
+        </div>
+      </div>
+    </filter-control>
+    <div class="stats">
+      <span>Old: 522 glyphs</span>
+      <span class="new-count">New: 662 glyphs (+140)</span>
+    </div>
+  </div>
+
+  <view-tabs>
+    <div class="view-tabs" data-ref="tabs">
+      <button class="active" data-view="grid">Grid</button>
+      <button data-view="text">Text Preview</button>
+    </div>
+  </view-tabs>
+
+  <div class="legend" data-ref="legend">
+    <div class="legend-item"><div class="legend-swatch both"></div> In both fonts</div>
+    <div class="legend-item"><div class="legend-swatch new-only"></div> New in GF build</div>
+  </div>
+
+  <glyph-grid>
+    <template data-ref="blockTpl">
+      <div class="block-section">
+        <div class="block-title"></div>
+        <div class="glyph-grid"></div>
+      </div>
+    </template>
+
+    <template data-ref="cellTpl">
+      <div class="glyph-cell">
+        <div class="glyph-cp"></div>
+        <div class="glyph-pair">
+          <div class="glyph-render old"></div>
+          <div class="glyph-render new"></div>
+        </div>
+        <div class="pair-labels"><span>old</span><span>new</span></div>
+      </div>
+    </template>
+
+    <div data-ref="content"></div>
+  </glyph-grid>
+
+  <text-preview class="hidden">
+    <div class="text-preview">
+      <div class="text-preview-controls">
+        <select data-ref="samples">
+          <option value="">Custom text...</option>
+          <option value="serbian">Serbian</option>
+          <option value="macedonian">Macedonian</option>
+          <option value="ukrainian">Ukrainian</option>
+          <option value="belarusian">Belarusian</option>
+          <option value="bulgarian">Bulgarian</option>
+          <option value="mixed">Mixed showcase</option>
+        </select>
+      </div>
+      <textarea data-ref="input" rows="4" placeholder="Type or paste text here to preview in both fonts..."></textarea>
+      <div class="text-preview-panels">
+        <div class="text-panel">
+          <div class="text-panel-label">Old (designer)</div>
+          <div class="text-panel-content old" data-ref="oldPanel"></div>
+        </div>
+        <div class="text-panel">
+          <div class="text-panel-label">New (GF build)</div>
+          <div class="text-panel-content new" data-ref="newPanel"></div>
+        </div>
+      </div>
+    </div>
+  </text-preview>
+</comparison-app>
+
+<fs-viewer>
+  <div class="fullscreen-overlay" data-ref="overlay">
+    <div class="fs-header">
+      <div class="fs-top-row">
+        <div class="fs-title" data-ref="title"></div>
+        <button class="fs-close" data-ref="closeBtn" title="Close (Esc)">&times;</button>
+      </div>
+      <div class="fs-controls">
+        <source-toggle>
+          <div class="control-group">
+            <label>Font source</label>
+            <div class="source-toggle" data-ref="toggle">
+              <button class="active" data-src="variable">Variable</button>
+              <button data-src="static">Static</button>
+            </div>
+          </div>
+        </source-toggle>
+        <var-controls>
+          <div class="control-group">
+            <label>Weight <span class="value" data-ref="wghtVal">400</span></label>
+            <input type="range" data-ref="wght" min="100" max="1000" value="400" step="1">
+          </div>
+          <div class="control-group">
+            <label>Width <span class="value" data-ref="wdthVal">100</span></label>
+            <input type="range" data-ref="wdth" min="75" max="200" value="100" step="1">
+          </div>
+        </var-controls>
+        <static-controls class="hidden">
+          <div class="control-group">
+            <label>Width</label>
+            <select data-ref="width"></select>
+          </div>
+          <div class="control-group">
+            <label>Weight</label>
+            <select data-ref="weight"></select>
+          </div>
+        </static-controls>
+        <size-control min="48" max="600" step="32">
+          <div class="control-group">
+            <label>Glyph size</label>
+            <div class="font-size-control">
+              <button data-ref="down">-</button>
+              <span class="value" data-ref="val">500</span>
+              <button data-ref="up">+</button>
+            </div>
+          </div>
+        </size-control>
+        <div class="control-group">
+          <label>Mode</label>
+          <div class="fs-mode-toggle" data-ref="modeToggle">
+            <button data-mode="side">Side by side</button>
+            <button class="active" data-mode="overlay">Overlay</button>
+          </div>
+        </div>
+        <div class="control-group" data-ref="opacityGroup">
+          <label>Old layer opacity <span class="value" data-ref="opacityVal">50%</span></label>
+          <input type="range" data-ref="opacity" min="0" max="100" value="50" step="1">
+        </div>
+        <div class="fs-nav">
+          <button data-ref="prevBtn" title="Previous glyph (Left arrow)">&larr; Prev</button>
+          <span data-ref="blockIndex"></span>
+          <button data-ref="nextBtn" title="Next glyph (Right arrow)">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+    <div class="fs-body overlay-mode" data-ref="body">
+      <div class="fs-side old" data-ref="oldSide" style="opacity:0.5">
+        <div class="fs-side-label">Old (designer)</div>
+        <div class="fs-glyph" data-ref="glyphOld"></div>
+      </div>
+      <div class="fs-side new">
+        <div class="fs-side-label">New (GF build)</div>
+        <div class="fs-glyph" data-ref="glyphNew"></div>
+      </div>
+    </div>
+    <div class="overlay-legend visible" data-ref="legend">
+      <div class="ol-item"><div class="ol-swatch old-color"></div> Old only (red)</div>
+      <div class="ol-item"><div class="ol-swatch new-color"></div> New only (blue)</div>
+      <div class="ol-item"><div class="ol-swatch match-color"></div> Overlap (pink/white)</div>
+    </div>
+  </div>
+</fs-viewer>
+
+<script type="module">
+import { define } from "https://esm.sh/nano-wc";
+import { renderList } from "https://esm.sh/nano-wc/render";
+import { createContext } from "https://esm.sh/nano-wc/context";
+import { atom, computed } from "https://esm.sh/nanostores";
+
+// === Data ===
+
+const ALL_CODEPOINTS = [32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,266,267,268,269,270,271,272,273,274,275,278,279,280,281,282,283,286,287,288,289,290,291,294,295,296,297,298,299,302,303,304,305,306,307,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,330,331,332,333,336,337,338,339,340,341,342,343,344,345,346,347,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,399,402,413,461,462,486,487,506,507,508,509,510,511,536,537,538,539,562,563,567,601,626,700,710,711,728,729,730,731,732,733,768,769,770,771,772,774,775,776,778,779,780,786,803,806,807,808,1025,1026,1027,1028,1029,1030,1031,1032,1033,1034,1035,1036,1038,1039,1040,1041,1042,1043,1044,1045,1046,1047,1048,1049,1050,1051,1052,1053,1054,1055,1056,1057,1058,1059,1060,1061,1062,1063,1064,1065,1066,1067,1068,1069,1070,1071,1072,1073,1074,1075,1076,1077,1078,1079,1080,1081,1082,1083,1084,1085,1086,1087,1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1098,1099,1100,1101,1102,1103,1105,1106,1107,1108,1109,1110,1111,1112,1113,1114,1115,1116,1118,1119,1122,1123,1138,1139,1140,1141,1168,1169,1170,1171,1172,1173,1174,1175,1176,1177,1178,1179,1180,1181,1182,1183,1184,1185,1186,1187,1188,1189,1190,1191,1192,1193,1194,1195,1196,1197,1198,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211,1212,1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224,1225,1226,1227,1228,1229,1230,1231,1232,1233,1234,1235,1236,1237,1238,1239,1240,1241,1242,1243,1244,1245,1246,1247,1248,1249,1250,1251,1252,1253,1254,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1265,1266,1267,1268,1269,1270,1271,1272,1273,1276,1277,1296,1297,1298,1299,1308,1309,1316,1317,1318,1319,7692,7693,7716,7717,7778,7779,7788,7789,7808,7809,7810,7811,7812,7813,7826,7827,7838,7868,7869,7882,7883,7884,7885,7908,7909,7922,7923,7928,7929,8194,8195,8209,8211,8212,8216,8217,8218,8220,8221,8222,8224,8225,8226,8230,8240,8249,8250,8260,8304,8308,8309,8310,8311,8312,8313,8320,8321,8322,8323,8324,8325,8326,8327,8328,8329,8364,8372,8381,8470,8482,8528,8529,8530,8531,8532,8533,8534,8535,8536,8537,8538,8539,8540,8541,8542,8543,8585,8592,8593,8594,8595,8722,8776,8800,42891,42892,64257,64258];
+
+const ONLY_NEW = new Set([1026,1027,1029,1032,1033,1034,1035,1036,1039,1106,1107,1109,1112,1113,1114,1115,1116,1119,1122,1123,1138,1139,1140,1141,1170,1171,1172,1173,1174,1175,1176,1177,1178,1179,1180,1181,1182,1183,1184,1185,1186,1187,1188,1189,1190,1191,1192,1193,1194,1195,1196,1197,1198,1199,1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211,1212,1213,1214,1215,1216,1217,1218,1219,1220,1221,1222,1223,1224,1225,1226,1227,1228,1229,1230,1231,1232,1233,1234,1235,1236,1237,1238,1239,1240,1241,1242,1243,1244,1245,1246,1247,1248,1249,1250,1251,1252,1253,1254,1255,1256,1257,1258,1259,1260,1261,1262,1263,1264,1265,1266,1267,1268,1269,1270,1271,1272,1273,1276,1277,1296,1297,1298,1299,1308,1309,1316,1317,1318,1319]);
+
+const BLOCKS = [
+  [0x0000, 0x007F, "Basic Latin"],
+  [0x0080, 0x00FF, "Latin-1 Supplement"],
+  [0x0100, 0x017F, "Latin Extended-A"],
+  [0x0180, 0x024F, "Latin Extended-B"],
+  [0x0250, 0x02AF, "IPA Extensions"],
+  [0x02B0, 0x02FF, "Spacing Modifier Letters"],
+  [0x0300, 0x036F, "Combining Diacritical Marks"],
+  [0x0400, 0x04FF, "Cyrillic"],
+  [0x0500, 0x052F, "Cyrillic Supplement"],
+  [0x1E00, 0x1EFF, "Latin Extended Additional"],
+  [0x2000, 0x206F, "General Punctuation"],
+  [0x2070, 0x209F, "Superscripts and Subscripts"],
+  [0x20A0, 0x20CF, "Currency Symbols"],
+  [0x2100, 0x214F, "Letterlike Symbols"],
+  [0x2150, 0x218F, "Number Forms"],
+  [0x2190, 0x21FF, "Arrows"],
+  [0x2200, 0x22FF, "Mathematical Operators"],
+  [0xA780, 0xA7FF, "Latin Extended-D"],
+  [0xFB00, 0xFB06, "Alphabetic Presentation Forms"],
+];
+
+const FONT_WIDTHS = [
+  { label: "Condensed", old: "Cn", new: "Condensed" },
+  { label: "Semi Condensed", old: "Nr", new: "SemiCondensed" },
+  { label: "Normal", old: "Std", new: "" },
+  { label: "Semi Expanded", old: "sWd", new: "SemiExpanded" },
+  { label: "Expanded", old: "Wd", new: "Expanded" },
+  { label: "Extra Expanded", old: "xWd", new: "ExtraExpanded" },
+  { label: "Ultra Expanded", old: "uWd", new: "UltraExpanded" },
+];
+
+const FONT_WEIGHTS = [
+  { label: "Thin", old: "Th", new: "Thin" },
+  { label: "Extra Light", old: "xLt", new: "ExtraLight" },
+  { label: "Light", old: "Lt", new: "Light" },
+  { label: "Regular", old: "Rg", new: "Regular" },
+  { label: "Medium", old: "Md", new: "Medium" },
+  { label: "Bold", old: "Bd", new: "Bold" },
+  { label: "Extra Bold", old: "xBd", new: "ExtraBold" },
+  { label: "Black", old: "Bl", new: "Black" },
+  { label: "Ultra Black", old: "Ult", new: "UltraBlack" },
+];
+
+// === Context ===
+
+const slidersCtx = createContext("sliders");
+
+// === State ===
+
+const $fontSource = atom("variable");
+const $staticWidthIdx = atom(2);
+const $staticWeightIdx = atom(3);
+const $weight = atom(400);
+const $width = atom(100);
+const $glyphSize = atom(32);
+const $filter = atom("all");
+const $view = atom("grid");
+const $previewText = atom("");
+
+const $fsOpen = atom(false);
+const $fsCpIdx = atom(0);
+const $fsWeight = atom(400);
+const $fsWidth = atom(100);
+const $fsGlyphSize = atom(500);
+const $fsMode = atom("overlay");
+const $fsOpacity = atom(50);
+
+const $visibleCps = computed($filter, (filter) =>
+  ALL_CODEPOINTS.filter((cp) => {
+    const isNew = ONLY_NEW.has(cp);
+    if (filter === "both" && isNew) return false;
+    if (filter === "new" && !isNew) return false;
+    return true;
+  })
+);
+
+// === Helpers ===
+
+function getBlock(cp) {
+  for (const [lo, hi, name] of BLOCKS) {
+    if (cp >= lo && cp <= hi) return name;
+  }
+  return "Other";
+}
+
+function getStaticFontPaths(widthIdx, weightIdx) {
+  const w = FONT_WIDTHS[widthIdx];
+  const wt = FONT_WEIGHTS[weightIdx];
+  const oldFile = `old-ttf/MartianGrotesk-${w.old}${wt.old}.ttf`;
+  const newPrefix = w.new ? `MartianGrotesk${w.new}` : "MartianGrotesk";
+  const newWeight = (w.new === "SemiExpanded" && wt.new === "UltraBlack") ? "ExtraBlack" : wt.new;
+  const newFile = `new-ttf/${newPrefix}-${newWeight}.ttf`;
+  return { oldFile, newFile };
+}
+
+function setFontFaces(oldUrl, newUrl) {
+  document.getElementById("dynamicFonts").textContent =
+    `@font-face { font-family: "MartianOld"; src: url("${oldUrl}") format("truetype"); font-display: swap; }
+     @font-face { font-family: "MartianNew"; src: url("${newUrl}") format("truetype"); font-display: swap; }`;
+}
+
+function updateFontFaces() {
+  if ($fontSource.get() === "static") {
+    const { oldFile, newFile } = getStaticFontPaths($staticWidthIdx.get(), $staticWeightIdx.get());
+    setFontFaces(oldFile, newFile);
+  } else {
+    setFontFaces("MartianGrotesk-old.ttf", "MartianGrotesk-new.ttf");
+  }
+}
+
+function populateSelect(el, items, selectedIdx) {
+  el.innerHTML = items.map((item, i) =>
+    `<option value="${i}"${i === selectedIdx ? " selected" : ""}>${item.label}</option>`
+  ).join("");
+}
+
+function groupByBlock(cps) {
+  const grouped = new Map();
+  for (const cp of cps) {
+    const block = getBlock(cp);
+    if (!grouped.has(block)) grouped.set(block, []);
+    grouped.get(block).push(cp);
+  }
+  return Array.from(grouped, ([name, cps]) => ({ name, cps }));
+}
+
+function updateCell(el, cp) {
+  const isNew = ONLY_NEW.has(cp);
+  const char = String.fromCodePoint(cp);
+  const hex = "U+" + cp.toString(16).toUpperCase().padStart(4, "0");
+
+  el.className = isNew ? "glyph-cell new-only" : "glyph-cell";
+  el.dataset.cp = String(cp);
+  el.querySelector(".glyph-cp").textContent = hex;
+
+  const oldR = el.querySelector(".glyph-render.old");
+  const newR = el.querySelector(".glyph-render.new");
+
+  oldR.textContent = isNew ? "" : char;
+  newR.textContent = char;
+}
+
+function attachToggle(ctx, container, $store, dataAttr) {
+  ctx.on(container, "click", (e) => {
+    const btn = e.target.closest("button");
+    const val = btn?.dataset[dataAttr];
+    if (val) $store.set(val);
+  });
+  ctx.effect($store, (val) => {
+    container.querySelectorAll("button").forEach((b) =>
+      b.classList.toggle("active", b.dataset[dataAttr] === val)
+    );
+  });
+}
+
+const SAMPLE_TEXTS = {
+  serbian: "Ђорђе љуби Њу Јорк. Џемпер, ћевапчићи и кајмак су најбољи на свету. Људи воле лепе ствари: књиге, цвеће и музику. Сваки четвртак увече, његова породица се окупља и ужива у топлој атмосфери.",
+  macedonian: "Ѓорѓи и Ќерстин зборуваат за ѕвездите. Јас сакам да читам книги за историјата на Македонија. Ќе одиме на излет во планината, каде што ѕидовите се стари и убави.",
+  ukrainian: "Єдиний ґрунтовний їжак із Закарпаття знайшов їжу біля ґанку. Ґвалт! Ці їхні ґудзики є справжніми? Які гарні ірисові квіти ростуть біля річки!",
+  belarusian: "Маўклівы дзяўчына ўбачыла маланку ў небе. Ён паехаў на аўтобусе ў Мінск, каб наведаць сваю бабулю. Ўвечары яны гулялі па старым горадзе.",
+  bulgarian: "Щастливецът проумя бъдещето. Жълтите дюли бяха вкусни за цялото семейство. Южният вятър донесе топлина от морето, а децата играеха на плажа с пясъка.",
+  mixed: "Ђорђе из Београда, Ѓорѓи из Скопја, та Єлена із Києва зустрілися ў Мінску.\n\nСрпски: Љубав, њежност и ћутање.\nМакедонски: Ѕвезди, ќерки и ѓаволи.\nУкраїнська: Ґанок, їжак, Єгипет.\nБеларуская: Маўклівасць і ўлада.\nБългарски: Щастие, южен вятър.",
+};
+
+// === Parent components (defined first to provide context) ===
+
+define("comparison-app")
+  .withRefs((r) => ({
+    legend: r.one("div"),
+  }))
+  .setup((ctx) => {
+    slidersCtx.provide(ctx, { $weight, $width, $glyphSize });
+
+    ctx.effect($fontSource, () => updateFontFaces());
+    ctx.effect([$staticWidthIdx, $staticWeightIdx], () => {
+      if ($fontSource.get() === "static") updateFontFaces();
+    });
+
+    const grid = ctx.host.querySelector("glyph-grid");
+    const preview = ctx.host.querySelector("text-preview");
+
+    ctx.effect($view, (view) => {
+      const isGrid = view === "grid";
+      ctx.refs.legend.classList.toggle("hidden", !isGrid);
+      grid.classList.toggle("hidden", !isGrid);
+      preview.classList.toggle("hidden", isGrid);
+    });
+  });
+
+define("fs-viewer")
+  .withRefs((r) => ({
+    overlay: r.one("div"),
+    title: r.one("div"),
+    closeBtn: r.one("button"),
+    modeToggle: r.one("div"),
+    opacityGroup: r.one("div"),
+    opacity: r.one("input"),
+    opacityVal: r.one("span"),
+    prevBtn: r.one("button"),
+    nextBtn: r.one("button"),
+    blockIndex: r.one("span"),
+    body: r.one("div"),
+    oldSide: r.one("div"),
+    glyphOld: r.one("div"),
+    glyphNew: r.one("div"),
+    legend: r.one("div"),
+  }))
+  .setup((ctx) => {
+    const { refs } = ctx;
+
+    slidersCtx.provide(ctx, {
+      $weight: $fsWeight,
+      $width: $fsWidth,
+      $glyphSize: $fsGlyphSize,
+    });
+
+    function renderGlyph() {
+      const cps = $visibleCps.get();
+      const idx = $fsCpIdx.get();
+      const cp = cps[idx];
+      if (cp === undefined) return;
+
+      const isNew = ONLY_NEW.has(cp);
+      const char = String.fromCodePoint(cp);
+      const hex = "U+" + cp.toString(16).toUpperCase().padStart(4, "0");
+      const block = getBlock(cp);
+
+      let titleHtml = `${char} <span class="cp">${hex}</span><span class="block-name">${block}</span>`;
+      if (isNew) titleHtml += `<span class="new-badge">NEW</span>`;
+      refs.title.innerHTML = titleHtml;
+      refs.blockIndex.textContent = `${idx + 1} / ${cps.length}`;
+
+      const w = $fsWeight.get();
+      const wd = $fsWidth.get();
+      const vs = `"wght" ${w}, "wdth" ${wd}`;
+      const size = $fsGlyphSize.get() + "px";
+
+      refs.glyphOld.style.fontSize = size;
+      refs.glyphOld.style.fontVariationSettings = vs;
+      refs.glyphNew.style.fontSize = size;
+      refs.glyphNew.style.fontVariationSettings = vs;
+
+      if (isNew) {
+        refs.oldSide.classList.add("unavailable");
+        refs.glyphOld.textContent = "";
+      } else {
+        refs.oldSide.classList.remove("unavailable");
+        refs.glyphOld.textContent = char;
+      }
+      refs.glyphNew.textContent = char;
+    }
+
+    function navigate(dir) {
+      const cps = $visibleCps.get();
+      $fsCpIdx.set(($fsCpIdx.get() + dir + cps.length) % cps.length);
+    }
+
+    // --- Events ---
+
+    ctx.on(refs.closeBtn, "click", () => $fsOpen.set(false));
+    ctx.on(refs.prevBtn, "click", () => navigate(-1));
+    ctx.on(refs.nextBtn, "click", () => navigate(1));
+
+    ctx.on(document, "keydown", (e) => {
+      if (!$fsOpen.get()) return;
+      if (e.key === "Escape") $fsOpen.set(false);
+      if (e.key === "ArrowLeft") { navigate(-1); e.preventDefault(); }
+      if (e.key === "ArrowRight") { navigate(1); e.preventDefault(); }
+    });
+
+    attachToggle(ctx, refs.modeToggle, $fsMode, "mode");
+
+    ctx.bind($fsOpacity, refs.opacity);
+
+    // --- Effects ---
+
+    ctx.effect($fsOpen, (open) => {
+      refs.overlay.classList.toggle("open", open);
+      document.body.style.overflow = open ? "hidden" : "";
+      if (open) renderGlyph();
+    });
+
+    ctx.effect([$fsCpIdx, $fsWeight, $fsWidth, $fsGlyphSize], () => {
+      if ($fsOpen.get()) renderGlyph();
+    });
+
+    ctx.effect($fontSource, () => {
+      if ($fsOpen.get()) renderGlyph();
+    });
+
+    ctx.effect($fsMode, (mode) => {
+      if (mode === "overlay") {
+        refs.body.classList.add("overlay-mode");
+        refs.legend.classList.add("visible");
+        refs.opacityGroup.style.display = "";
+      } else {
+        refs.body.classList.remove("overlay-mode");
+        refs.legend.classList.remove("visible");
+        refs.opacityGroup.style.display = "none";
+        refs.oldSide.style.opacity = "";
+      }
+    });
+
+    ctx.effect($fsOpacity, (v) => {
+      refs.opacityVal.textContent = v + "%";
+      refs.oldSide.style.opacity = String(v / 100);
+    });
+  });
+
+// === Shared control components ===
+
+define("source-toggle")
+  .withRefs((r) => ({
+    toggle: r.one("div"),
+  }))
+  .setup((ctx) => {
+    attachToggle(ctx, ctx.refs.toggle, $fontSource, "src");
+  });
+
+define("var-controls")
+  .withContexts({ sliders: slidersCtx })
+  .withRefs((r) => ({
+    wghtVal: r.one("span"),
+    wght: r.one("input"),
+    wdthVal: r.one("span"),
+    wdth: r.one("input"),
+  }))
+  .setup((ctx) => {
+    const { $weight, $width } = ctx.contexts.sliders;
+    const { refs } = ctx;
+
+    ctx.bind($weight, refs.wght);
+    ctx.bind($width, refs.wdth);
+
+    ctx.effect($weight, (v) => { refs.wghtVal.textContent = String(v); });
+    ctx.effect($width, (v) => { refs.wdthVal.textContent = String(v); });
+
+    ctx.effect($fontSource, (src) => {
+      ctx.host.classList.toggle("hidden", src === "static");
+    });
+  });
+
+define("static-controls")
+  .withRefs((r) => ({
+    width: r.one("select"),
+    weight: r.one("select"),
+  }))
+  .setup((ctx) => {
+    const { refs } = ctx;
+
+    populateSelect(refs.width, FONT_WIDTHS, 2);
+    populateSelect(refs.weight, FONT_WEIGHTS, 3);
+
+    ctx.bind($staticWidthIdx, refs.width);
+    ctx.bind($staticWeightIdx, refs.weight);
+
+    ctx.effect($fontSource, (src) => {
+      ctx.host.classList.toggle("hidden", src !== "static");
+    });
+  });
+
+define("size-control")
+  .withProps((p) => ({
+    min: p.number(16),
+    max: p.number(72),
+    step: p.number(4),
+  }))
+  .withContexts({ sliders: slidersCtx })
+  .withRefs((r) => ({
+    down: r.one("button"),
+    up: r.one("button"),
+    val: r.one("span"),
+  }))
+  .setup((ctx) => {
+    const { $glyphSize } = ctx.contexts.sliders;
+    const min = ctx.props.$min.get();
+    const max = ctx.props.$max.get();
+    const step = ctx.props.$step.get();
+
+    ctx.on(ctx.refs.down, "click", () => $glyphSize.set(Math.max(min, $glyphSize.get() - step)));
+    ctx.on(ctx.refs.up, "click", () => $glyphSize.set(Math.min(max, $glyphSize.get() + step)));
+
+    ctx.effect($glyphSize, (v) => { ctx.refs.val.textContent = String(v); });
+  });
+
+define("filter-control")
+  .withRefs((r) => ({
+    buttons: r.one("div"),
+  }))
+  .setup((ctx) => {
+    attachToggle(ctx, ctx.refs.buttons, $filter, "filter");
+  });
+
+define("view-tabs")
+  .withRefs((r) => ({
+    tabs: r.one("div"),
+  }))
+  .setup((ctx) => {
+    attachToggle(ctx, ctx.refs.tabs, $view, "view");
+  });
+
+define("text-preview")
+  .withContexts({ sliders: slidersCtx })
+  .withRefs((r) => ({
+    samples: r.one("select"),
+    input: r.one("textarea"),
+    oldPanel: r.one("div"),
+    newPanel: r.one("div"),
+  }))
+  .setup((ctx) => {
+    const { $weight, $width, $glyphSize } = ctx.contexts.sliders;
+    const { refs } = ctx;
+
+    ctx.bind($previewText, refs.input);
+
+    ctx.on(refs.samples, "change", () => {
+      const key = refs.samples.value;
+      if (key && SAMPLE_TEXTS[key]) $previewText.set(SAMPLE_TEXTS[key]);
+    });
+
+    function renderText(text) {
+      refs.oldPanel.textContent = text;
+      // Highlight new-only characters in the new panel
+      const html = Array.from(text).map((ch) => {
+        const cp = ch.codePointAt(0);
+        return ONLY_NEW.has(cp) ? `<span class="new-char">${ch}</span>` : ch;
+      }).join("");
+      refs.newPanel.innerHTML = html || "";
+    }
+
+    ctx.effect($previewText, renderText);
+
+    ctx.effect([$weight, $width], (w, wd) => {
+      ctx.host.style.setProperty("--vs", `"wght" ${w}, "wdth" ${wd}`);
+    });
+
+    ctx.effect($glyphSize, (v) => {
+      ctx.host.style.setProperty("--glyph-size", v + "px");
+    });
+  });
+
+define("glyph-grid")
+  .withRefs((r) => ({
+    blockTpl: r.one("template"),
+    cellTpl: r.one("template"),
+    content: r.one("div"),
+  }))
+  .setup((ctx) => {
+    const { refs } = ctx;
+
+    ctx.on(refs.content, "click", (e) => {
+      const cell = e.target.closest(".glyph-cell");
+      if (!cell) return;
+      const cp = Number(cell.dataset.cp);
+      const idx = $visibleCps.get().indexOf(cp);
+      $fsCpIdx.set(idx >= 0 ? idx : 0);
+      $fsWeight.set($weight.get());
+      $fsWidth.set($width.get());
+      $fsOpen.set(true);
+    });
+
+    ctx.effect($visibleCps, (cps) => {
+      const blocks = groupByBlock(cps);
+      renderList(refs.content, refs.blockTpl, {
+        data: blocks,
+        key: (b) => b.name,
+        update: (el, block) => {
+          const newCount = block.cps.filter((c) => ONLY_NEW.has(c)).length;
+          const newLabel = newCount > 0 ? ` <span style="color:#6e6">(+${newCount} new)</span>` : "";
+          el.querySelector(".block-title").innerHTML =
+            `${block.name} <span class="count">${block.cps.length} glyphs${newLabel}</span>`;
+
+          renderList(el.querySelector(".glyph-grid"), refs.cellTpl, {
+            data: block.cps,
+            key: (cp) => cp,
+            update: (cellEl, cp) => updateCell(cellEl, cp),
+          });
+        },
+      });
+    });
+
+    ctx.effect([$weight, $width], (w, wd) => {
+      ctx.host.style.setProperty("--vs", `"wght" ${w}, "wdth" ${wd}`);
+    });
+
+    ctx.effect($glyphSize, (v) => {
+      ctx.host.style.setProperty("--glyph-size", v + "px");
+    });
+  });
+</script>
+</body>
+</html>
