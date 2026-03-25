@@ -1,14 +1,8 @@
 {
-.appVersion = "3305";
+.appVersion = "3436";
 .formatVersion = 3;
 DisplayStrings = (
-"HЋHЋH
-ЧT Ћ/_part.Tshe-cy Ђ/_part.Dje-cy/_part.Hook 
-ЋћЂђ",
-"ЋЋЋЋЋЋЋЋЋЋЋЋ
-ЂЂЂЂЂЂЂЂЂЂЂЂ",
-"/_part.stem-H/_part.stem-n †‡",
-"=/_part.notequal ≠"
+"/_part.C-narrow €"
 );
 axes = (
 {
@@ -161398,7 +161392,7 @@ unicode = 36;
 {
 color = 0;
 glyphname = euro;
-lastChange = "2023-12-15 18:43:28 +0000";
+lastChange = "2026-03-25 16:56:09 +0000";
 layers = (
 {
 layerId = m01;
@@ -161410,11 +161404,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 500;
 };
-pos = (799,0);
+pos = (38,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1309;
+width = 799;
 },
 {
 layerId = m002;
@@ -161426,11 +161420,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 520;
 };
-pos = (838,0);
+pos = (10,-6);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1366;
+width = 838;
 },
 {
 layerId = m003;
@@ -161442,11 +161436,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 700;
 };
-pos = (1051,0);
+pos = (8,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1761;
+width = 1051;
 },
 {
 layerId = m004;
@@ -161458,11 +161452,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 700;
 };
-pos = (1097,0);
+pos = (23,-6);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1805;
+width = 1097;
 },
 {
 layerId = m005;
@@ -161474,11 +161468,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 400;
 };
-pos = (684,0);
+pos = (45,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1094;
+width = 684;
 },
 {
 layerId = m006;
@@ -161490,11 +161484,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 400;
 };
-pos = (714,0);
+pos = (17,-6);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1120;
+width = 714;
 },
 {
 layerId = m007;
@@ -161506,11 +161500,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 500;
 };
-pos = (735,0);
+pos = (15,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1245;
+width = 735;
 },
 {
 layerId = m008;
@@ -161525,11 +161519,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 520;
 };
-pos = (857,0);
+pos = (6,8);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1381;
+width = 857;
 },
 {
 layerId = m009;
@@ -161541,11 +161535,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 420;
 };
-pos = (629,0);
+pos = (15,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1059;
+width = 629;
 },
 {
 layerId = m010;
@@ -161557,11 +161551,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 660;
 };
-pos = (970,0);
+pos = (14,0);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1642;
+width = 970;
 },
 {
 layerId = "434FAEF3-677A-47AD-84F7-3A7F762C5BD0";
@@ -161576,11 +161570,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 760;
 };
-pos = (1185,0);
+pos = (0,8);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1949;
+width = 1185;
 },
 {
 layerId = "C0ED73B8-BF3D-4D9D-8EF3-572E464554C2";
@@ -161595,11 +161589,11 @@ ref = "_part.C-narrow";
 piece = {
 Width = 430;
 };
-pos = (727,0);
+pos = (7,8);
 ref = "_part.currency-cross-double";
 }
 );
-width = 1161;
+width = 727;
 }
 );
 metricLeft = "=O/1.6";
@@ -190172,12 +190166,12 @@ metricRight = "=RNDU*0.8";
 {
 export = 0;
 glyphname = "_part.C-narrow";
-lastChange = "2022-03-26 19:38:56 +0000";
+lastChange = "2026-03-25 16:56:49 +0000";
 layers = (
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (293,400);
 }
 );
@@ -190228,7 +190222,7 @@ width = 799;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (274,394);
 }
 );
@@ -190279,7 +190273,7 @@ width = 838;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (363,400);
 }
 );
@@ -190330,7 +190324,7 @@ width = 1051;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (377,394);
 }
 );
@@ -190381,7 +190375,7 @@ width = 1097;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (250,400);
 }
 );
@@ -190432,7 +190426,7 @@ width = 684;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (220,394);
 }
 );
@@ -190483,7 +190477,7 @@ width = 714;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (270,400);
 }
 );
@@ -190526,7 +190520,7 @@ width = 735;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (268,408);
 }
 );
@@ -190577,7 +190571,7 @@ width = 857;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (230,400);
 }
 );
@@ -190620,7 +190614,7 @@ width = 629;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (350,400);
 }
 );
@@ -190663,7 +190657,7 @@ width = 970;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (382,408);
 }
 );
@@ -190714,7 +190708,7 @@ width = 1185;
 {
 anchors = (
 {
-name = connect;
+name = center;
 pos = (224,408);
 }
 );
