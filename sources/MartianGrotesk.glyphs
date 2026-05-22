@@ -238404,13 +238404,6 @@ metricLeft = "=SQR/6";
 );
 instances = (
 {
-customParameters = (
-{
-disabled = 1;
-name = fileName;
-value = "MartianGrotesk-VF";
-}
-);
 name = Regular;
 properties = (
 {
@@ -238418,7 +238411,7 @@ key = familyNames;
 values = (
 {
 language = dflt;
-value = "Martian Grotesk VF v1.1";
+value = "Martian Grotesk VF";
 }
 );
 }
@@ -238448,7 +238441,18 @@ Location = 75;
 instanceInterpolations = {
 m009 = 1;
 };
-name = "Cn Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 3;
 },
@@ -238476,7 +238480,18 @@ instanceInterpolations = {
 m005 = 0.4;
 m009 = 0.6;
 };
-name = "Cn xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 3;
 },
@@ -238504,7 +238519,18 @@ instanceInterpolations = {
 m005 = 0.8;
 m009 = 0.2;
 };
-name = "Cn Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 3;
 },
@@ -238531,7 +238557,18 @@ Location = 75;
 instanceInterpolations = {
 m005 = 1;
 };
-name = "Cn Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 widthClass = 3;
 },
 {
@@ -238540,13 +238577,6 @@ axesValues = (
 3
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238565,7 +238595,18 @@ instanceInterpolations = {
 m005 = 0.68571;
 m006 = 0.31429;
 };
-name = "Cn Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 3;
 },
@@ -238575,13 +238616,6 @@ axesValues = (
 3
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238601,8 +238635,18 @@ m005 = 0.34286;
 m006 = 0.65714;
 };
 isBold = 1;
-linkStyle = "Cn Rg";
-name = "Cn Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 3;
 },
@@ -238612,13 +238656,6 @@ axesValues = (
 3
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238636,7 +238673,18 @@ Location = 75;
 instanceInterpolations = {
 m006 = 1;
 };
-name = "Cn xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 3;
 },
@@ -238646,13 +238694,6 @@ axesValues = (
 3
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238671,7 +238712,18 @@ instanceInterpolations = {
 "C0ED73B8-BF3D-4D9D-8EF3-572E464554C2" = 0.5;
 m006 = 0.5;
 };
-name = "Cn Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 3;
 },
@@ -238681,13 +238733,6 @@ axesValues = (
 3
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238705,7 +238750,18 @@ Location = 75;
 instanceInterpolations = {
 "C0ED73B8-BF3D-4D9D-8EF3-572E464554C2" = 1;
 };
-name = "Cn Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Condensed";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 3;
 },
@@ -238733,7 +238789,18 @@ instanceInterpolations = {
 m007 = 0.5;
 m009 = 0.5;
 };
-name = "Nr Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 4;
 },
@@ -238763,7 +238830,18 @@ m007 = 0.3;
 m009 = 0.3;
 m01 = 0.2;
 };
-name = "Nr xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 4;
 },
@@ -238793,7 +238871,18 @@ m007 = 0.1;
 m009 = 0.1;
 m01 = 0.4;
 };
-name = "Nr Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 4;
 },
@@ -238821,7 +238910,18 @@ instanceInterpolations = {
 m005 = 0.5;
 m01 = 0.5;
 };
-name = "Nr Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 widthClass = 4;
 },
 {
@@ -238850,7 +238950,18 @@ m005 = 0.34286;
 m006 = 0.15714;
 m01 = 0.34286;
 };
-name = "Nr Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 4;
 },
@@ -238860,13 +238971,6 @@ axesValues = (
 4
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238888,8 +238992,18 @@ m006 = 0.32857;
 m01 = 0.17143;
 };
 isBold = 1;
-linkStyle = "Nr Rg";
-name = "Nr Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 4;
 },
@@ -238899,13 +239013,6 @@ axesValues = (
 4
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238924,7 +239031,18 @@ instanceInterpolations = {
 m002 = 0.5;
 m006 = 0.5;
 };
-name = "Nr xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 4;
 },
@@ -238934,13 +239052,6 @@ axesValues = (
 4
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238961,7 +239072,18 @@ m002 = 0.25;
 m006 = 0.25;
 m008 = 0.25;
 };
-name = "Nr Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 4;
 },
@@ -238971,13 +239093,6 @@ axesValues = (
 4
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -238996,7 +239111,18 @@ instanceInterpolations = {
 "C0ED73B8-BF3D-4D9D-8EF3-572E464554C2" = 0.5;
 m008 = 0.5;
 };
-name = "Nr Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiCondensed";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 4;
 },
@@ -239023,7 +239149,18 @@ Location = 100;
 instanceInterpolations = {
 m007 = 1;
 };
-name = "Std Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 100;
 },
 {
@@ -239050,7 +239187,18 @@ instanceInterpolations = {
 m007 = 0.6;
 m01 = 0.4;
 };
-name = "Std xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 200;
 },
 {
@@ -239077,7 +239225,18 @@ instanceInterpolations = {
 m007 = 0.2;
 m01 = 0.8;
 };
-name = "Std Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 300;
 },
 {
@@ -239103,7 +239262,18 @@ Location = 100;
 instanceInterpolations = {
 m01 = 1;
 };
-name = "Std Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 },
 {
 axesValues = (
@@ -239129,7 +239299,18 @@ instanceInterpolations = {
 m002 = 0.31429;
 m01 = 0.68571;
 };
-name = "Std Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 500;
 },
 {
@@ -239138,13 +239319,6 @@ axesValues = (
 5
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -239164,8 +239338,18 @@ m002 = 0.65714;
 m01 = 0.34286;
 };
 isBold = 1;
-linkStyle = "Std Rg";
-name = "Std Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 700;
 },
 {
@@ -239174,13 +239358,6 @@ axesValues = (
 5
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -239198,7 +239375,18 @@ Location = 100;
 instanceInterpolations = {
 m002 = 1;
 };
-name = "Std xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 800;
 },
 {
@@ -239207,13 +239395,6 @@ axesValues = (
 5
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -239232,7 +239413,18 @@ instanceInterpolations = {
 m002 = 0.5;
 m008 = 0.5;
 };
-name = "Std Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 900;
 },
 {
@@ -239241,13 +239433,6 @@ axesValues = (
 5
 );
 customParameters = (
-{
-name = "Rename Glyphs";
-value = (
-"dollar.bold=dollar",
-"cent.bold=cent"
-);
-},
 {
 name = "Axis Location";
 value = (
@@ -239265,7 +239450,18 @@ Location = 100;
 instanceInterpolations = {
 m008 = 1;
 };
-name = "Std Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk";
+}
+);
+}
+);
 weightClass = 1000;
 },
 {
@@ -239292,7 +239488,18 @@ instanceInterpolations = {
 m007 = 0.75;
 m010 = 0.25;
 };
-name = "sWd Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 6;
 },
@@ -239322,7 +239529,18 @@ m007 = 0.45;
 m01 = 0.3;
 m010 = 0.15;
 };
-name = "sWd xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 6;
 },
@@ -239352,7 +239570,18 @@ m007 = 0.15;
 m01 = 0.6;
 m010 = 0.05;
 };
-name = "sWd Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 6;
 },
@@ -239380,7 +239609,18 @@ instanceInterpolations = {
 m003 = 0.25;
 m01 = 0.75;
 };
-name = "sWd Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 widthClass = 6;
 },
 {
@@ -239409,7 +239649,18 @@ m003 = 0.17143;
 m004 = 0.07857;
 m01 = 0.51429;
 };
-name = "sWd Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 6;
 },
@@ -239440,8 +239691,18 @@ m004 = 0.16429;
 m01 = 0.25714;
 };
 isBold = 1;
-linkStyle = "sWd Rg";
-name = "sWd Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 6;
 },
@@ -239469,7 +239730,18 @@ instanceInterpolations = {
 m002 = 0.75;
 m004 = 0.25;
 };
-name = "sWd xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 6;
 },
@@ -239499,7 +239771,18 @@ m002 = 0.375;
 m004 = 0.125;
 m008 = 0.375;
 };
-name = "sWd Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 6;
 },
@@ -239527,7 +239810,18 @@ instanceInterpolations = {
 "434FAEF3-677A-47AD-84F7-3A7F762C5BD0" = 0.25;
 m008 = 0.75;
 };
-name = "sWd Ult";
+name = ExtraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk SemiExpanded";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 6;
 },
@@ -239555,7 +239849,18 @@ instanceInterpolations = {
 m007 = 0.5;
 m010 = 0.5;
 };
-name = "Wd Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 7;
 },
@@ -239585,7 +239890,18 @@ m007 = 0.3;
 m01 = 0.2;
 m010 = 0.3;
 };
-name = "Wd xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 7;
 },
@@ -239615,7 +239931,18 @@ m007 = 0.1;
 m01 = 0.4;
 m010 = 0.1;
 };
-name = "Wd Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 7;
 },
@@ -239643,7 +239970,18 @@ instanceInterpolations = {
 m003 = 0.5;
 m01 = 0.5;
 };
-name = "Wd Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 widthClass = 7;
 },
 {
@@ -239672,7 +240010,18 @@ m003 = 0.34286;
 m004 = 0.15714;
 m01 = 0.34286;
 };
-name = "Wd Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 7;
 },
@@ -239703,8 +240052,18 @@ m004 = 0.32857;
 m01 = 0.17143;
 };
 isBold = 1;
-linkStyle = "Wd Rg";
-name = "Wd Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 7;
 },
@@ -239732,7 +240091,18 @@ instanceInterpolations = {
 m002 = 0.5;
 m004 = 0.5;
 };
-name = "Wd xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 7;
 },
@@ -239762,7 +240132,18 @@ m002 = 0.25;
 m004 = 0.25;
 m008 = 0.25;
 };
-name = "Wd Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 7;
 },
@@ -239790,7 +240171,18 @@ instanceInterpolations = {
 "434FAEF3-677A-47AD-84F7-3A7F762C5BD0" = 0.5;
 m008 = 0.5;
 };
-name = "Wd Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk Expanded";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 7;
 },
@@ -239818,7 +240210,18 @@ instanceInterpolations = {
 m007 = 0.25;
 m010 = 0.75;
 };
-name = "xWd Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 8;
 },
@@ -239848,7 +240251,18 @@ m007 = 0.15;
 m01 = 0.1;
 m010 = 0.45;
 };
-name = "xWd xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 8;
 },
@@ -239878,7 +240292,18 @@ m007 = 0.05;
 m01 = 0.2;
 m010 = 0.15;
 };
-name = "xWd Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 8;
 },
@@ -239906,7 +240331,18 @@ instanceInterpolations = {
 m003 = 0.75;
 m01 = 0.25;
 };
-name = "xWd Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 widthClass = 8;
 },
 {
@@ -239935,7 +240371,18 @@ m003 = 0.51429;
 m004 = 0.23571;
 m01 = 0.17143;
 };
-name = "xWd Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 8;
 },
@@ -239965,7 +240412,19 @@ m003 = 0.25714;
 m004 = 0.49286;
 m01 = 0.08571;
 };
-name = "xWd Bd";
+isBold = 1;
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 8;
 },
@@ -239993,7 +240452,18 @@ instanceInterpolations = {
 m002 = 0.25;
 m004 = 0.75;
 };
-name = "xWd xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 8;
 },
@@ -240023,7 +240493,18 @@ m002 = 0.125;
 m004 = 0.375;
 m008 = 0.125;
 };
-name = "xWd Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 8;
 },
@@ -240051,7 +240532,18 @@ instanceInterpolations = {
 "434FAEF3-677A-47AD-84F7-3A7F762C5BD0" = 0.75;
 m008 = 0.25;
 };
-name = "xWd Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk ExtraExpanded";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 8;
 },
@@ -240078,7 +240570,18 @@ Location = 200;
 instanceInterpolations = {
 m010 = 1;
 };
-name = "uWd Th";
+name = Thin;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 100;
 widthClass = 9;
 },
@@ -240106,7 +240609,18 @@ instanceInterpolations = {
 m003 = 0.4;
 m010 = 0.6;
 };
-name = "uWd xLt";
+name = ExtraLight;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 200;
 widthClass = 9;
 },
@@ -240134,7 +240648,18 @@ instanceInterpolations = {
 m003 = 0.8;
 m010 = 0.2;
 };
-name = "uWd Lt";
+name = Light;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 300;
 widthClass = 9;
 },
@@ -240161,7 +240686,18 @@ Location = 200;
 instanceInterpolations = {
 m003 = 1;
 };
-name = "uWd Rg";
+name = Regular;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 widthClass = 9;
 },
 {
@@ -240188,7 +240724,18 @@ instanceInterpolations = {
 m003 = 0.68571;
 m004 = 0.31429;
 };
-name = "uWd Md";
+name = Medium;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 500;
 widthClass = 9;
 },
@@ -240217,8 +240764,18 @@ m003 = 0.34286;
 m004 = 0.65714;
 };
 isBold = 1;
-linkStyle = "uWd Rg";
-name = "uWd Bd";
+name = Bold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 700;
 widthClass = 9;
 },
@@ -240245,7 +240802,18 @@ Location = 200;
 instanceInterpolations = {
 m004 = 1;
 };
-name = "uWd xBd";
+name = ExtraBold;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 800;
 widthClass = 9;
 },
@@ -240273,7 +240841,18 @@ instanceInterpolations = {
 "434FAEF3-677A-47AD-84F7-3A7F762C5BD0" = 0.5;
 m004 = 0.5;
 };
-name = "uWd Bl";
+name = Black;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 900;
 widthClass = 9;
 },
@@ -240300,7 +240879,18 @@ Location = 200;
 instanceInterpolations = {
 "434FAEF3-677A-47AD-84F7-3A7F762C5BD0" = 1;
 };
-name = "uWd Ult";
+name = UltraBlack;
+properties = (
+{
+key = familyNames;
+values = (
+{
+language = dflt;
+value = "Martian Grotesk UltraExpanded";
+}
+);
+}
+);
 weightClass = 1000;
 widthClass = 9;
 }
