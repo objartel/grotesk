@@ -1,0 +1,6 @@
+fontmake>=3.11.1
+fontbakery>=1.1.0
+gftools[qa]>=0.9.996
+drawbot-skia>=0.5.1
+sh>=2.2.2
+bumpfontversion>=0.4.1

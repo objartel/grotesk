@@ -1,0 +1,28 @@
+** BUILD **
+
+From the repo root:
+`sources/build.sh`
+
+This creates a venv (if needed), installs deps, and runs build.py.
+
+Use build.py instead of running `gftools builder config.yaml` directly.
+
+The Martian Grotesk source uses Glyphs 3 Smart Components (reusable glyph
+parts with built-in variation, e.g. _tail.Descender, _part.greater). glyphsLib,
+which fontmake uses to convert .glyphs files, does not fully support Smart
+Components — it fails on the "Group" piece property and on missing Smart
+Component masters for the UltraBlack weight.
+
+build.py works around this by:
+1. Loading MartianGrotesk.glyphs via glyphsLib
+2. Stripping the "Group" key from smartComponentValues (not a real axis)
+3. Patching glyphsLib to handle missing Smart Component masters gracefully
+4. Saving a temp copy (original file is never modified)
+5. Running gftools builder on the temp copy
+
+Smart component interpolation is preserved. Only the UltraBlack weight at
+Condensed and UltraExpanded widths falls back to regular component placement
+for a few smart parts (_tail.Descender, _part.greater, _part.stroke-ii-cy).
+
+If glyphsLib adds full Smart Component support in the future, build.py can
+be removed and `gftools builder config.yaml` used directly.
