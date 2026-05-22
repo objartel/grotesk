@@ -428,7 +428,7 @@ over = 12;
 pos = 848;
 }
 );
-name = "Cn Th";
+name = "Condensed Thin";
 stemValues = (
 40,
 36,
@@ -511,7 +511,7 @@ over = 12;
 pos = 848;
 }
 );
-name = "Std Th";
+name = "Normal Thin";
 stemValues = (
 40,
 36,
@@ -594,7 +594,7 @@ over = 12;
 pos = 848;
 }
 );
-name = "uWd Th";
+name = "UltraExpanded Thin";
 stemValues = (
 40,
 36,
@@ -677,7 +677,7 @@ over = 16;
 pos = 848;
 }
 );
-name = "Cn Rg";
+name = "Condensed Regular";
 stemValues = (
 110,
 100,
@@ -759,7 +759,7 @@ over = 16;
 pos = 848;
 }
 );
-name = "Std Rg";
+name = "Normal Regular";
 stemValues = (
 110,
 100,
@@ -842,7 +842,7 @@ over = 16;
 pos = 848;
 }
 );
-name = "uWd Rg";
+name = "UltraExpanded Regular";
 stemValues = (
 110,
 100,
@@ -925,7 +925,7 @@ over = 20;
 pos = 848;
 }
 );
-name = "Cn xBd";
+name = "Condensed ExtraBold";
 stemValues = (
 180,
 142,
@@ -1008,7 +1008,7 @@ over = 20;
 pos = 848;
 }
 );
-name = "Std xBd";
+name = "Normal ExtraBold";
 stemValues = (
 180,
 142,
@@ -1091,7 +1091,7 @@ over = 20;
 pos = 848;
 }
 );
-name = "uWd xBd";
+name = "UltraExpanded ExtraBold";
 stemValues = (
 180,
 142,
@@ -1174,7 +1174,7 @@ over = 26;
 pos = 848;
 }
 );
-name = "Cn Ult";
+name = "Condensed UltraBlack";
 stemValues = (
 272,
 54,
@@ -1257,7 +1257,7 @@ over = 26;
 pos = 848;
 }
 );
-name = "Std Ult";
+name = "Normal UltraBlack";
 stemValues = (
 320,
 54,
@@ -1340,7 +1340,7 @@ over = 26;
 pos = 848;
 }
 );
-name = "uWd Ult";
+name = "UltraExpanded UltraBlack";
 stemValues = (
 400,
 54,
