@@ -58,10 +58,15 @@ value = 1;
 {
 name = "Variable Font Origin";
 value = m01;
+},
+{
+name = fsType;
+value = (
+);
 }
 );
 date = "2020-11-28 12:14:13 +0000";
-familyName = "Martian Grotesk v1.1";
+familyName = "Martian Grotesk";
 featurePrefixes = (
 {
 automatic = 1;
@@ -249069,7 +249074,7 @@ key = copyrights;
 values = (
 {
 language = dflt;
-value = "Copyright © 2020, Roman Shamin (al4emist.artway@gmail.com)";
+value = "Copyright 2020 The Martian Grotesk Project Authors (https://github.com/evilmartians/grotesk)";
 }
 );
 },
@@ -249087,8 +249092,17 @@ key = designerURL;
 value = "https://twitter.com/romanshamin_en";
 },
 {
+key = licenses;
+values = (
+{
+language = dflt;
+value = "This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: https://scripts.sil.org/OFL";
+}
+);
+},
+{
 key = licenseURL;
-value = "https://gist.github.com/romashamin/1eb129751d10e22a69a4c9679c0cbba6";
+value = "https://scripts.sil.org/OFL";
 },
 {
 key = manufacturers;
@@ -249102,10 +249116,6 @@ value = "Evil Martians";
 {
 key = manufacturerURL;
 value = "https://evilmartians.com";
-},
-{
-key = versionString;
-value = "Version 1.100";
 }
 );
 stems = (
