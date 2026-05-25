@@ -1,9 +1,14 @@
-"""Build script that fixes glyphsLib Smart Component bugs before building.
+"""Build script that works around toolchain issues before running gftools.
 
 Martian Grotesk uses Glyphs 3 Smart Components which glyphsLib doesn't
-fully support. This script:
+fully support, and dollar/cent bracket layers whose 2-piece alt geometry
+overlap-removes badly in static instances.
+This script:
 1. Strips the 'Group' key from smartComponentValues (not a real axis)
 2. Patches glyphsLib to handle missing Smart Component masters gracefully
+3. Patches ufo2ft to skip bracket-layer glyph swaps in static instances
+   (variable feature-variations are unaffected — they go through a
+   different code path in fontTools.varLib)
 
 Smart component interpolation is preserved — only the 'Group' metadata
 and missing-master edge cases are fixed. The original source is never modified.
@@ -47,8 +52,8 @@ def patch_file(filepath, old, new):
     return text
 
 
-def patch_glyphslib():
-    """Patch 3 glyphsLib files to handle Smart Component edge cases."""
+def patch_dependencies():
+    """Patch glyphsLib (Smart Component edge cases) and ufo2ft (bracket swap dedup)."""
     patches = []
 
     # 1. smart_components.py: skip missing masters instead of raising
@@ -124,10 +129,40 @@ def patch_glyphslib():
     if orig:
         patches.append((p, orig))
 
+    # 5. ufo2ft/instantiator.py: skip bracket-layer glyph swaps for static
+    # instances so they match the OLD rlig + `#ifdef VARIABLE` behaviour
+    # (bracket variants only fire in the variable font, never in statics).
+    #
+    # Why we have to: the dollar/cent bracket layers use a 2-piece "alt"
+    # currency-stroke geometry. In the variable font the renderer doesn't run
+    # overlap-removal on the substituted glyph, so the two short pieces stay
+    # visible and the dollar reads as "S with stems poking through". In static
+    # builds gftools applies overlap-removal on the swapped-in alt geometry,
+    # which unions the small pieces into the S body and collapses everything
+    # to one contour — a solid blob with no visible stroke. Keeping the
+    # default `_part.currency-stroke` (single full rectangle) for statics
+    # gives the 3-contour outline (S body + 2 inner counters) that matches
+    # the OLD font files exactly.
+    #
+    # Variable feature-variations are unaffected: they go through
+    # fontTools.varLib._add_GSUB_feature_variations, not process_rules_swaps.
+    import ufo2ft.instantiator as ufo2ft_inst
+    p = Path(ufo2ft_inst.__file__)
+    orig = patch_file(p,
+        '                if oldName in glyphNames:\n'
+        '                    swaps.append((oldName, newName))',
+
+        '                # ' + PATCH_MARKER + ': skip BRACKET swaps in statics\n'
+        '                if oldName in glyphNames and ".BRACKET." not in newName:\n'
+        '                    swaps.append((oldName, newName))',
+    )
+    if orig:
+        patches.append((p, orig))
+
     return patches
 
 
-def restore_glyphslib(patches):
+def restore_dependencies(patches):
     for filepath, original in patches:
         filepath.write_text(original)
 
@@ -145,8 +180,8 @@ def main():
     count = strip_group_keys(font)
     print(f"  Stripped {count} entries")
 
-    print("Patching glyphsLib...")
-    patches = patch_glyphslib()
+    print("Patching dependencies...")
+    patches = patch_dependencies()
     print(f"  Patched {len(patches)} files")
 
     try:
@@ -178,8 +213,8 @@ def main():
 
             sys.exit(result.returncode)
     finally:
-        print("Restoring original glyphsLib...")
-        restore_glyphslib(patches)
+        print("Restoring original dependencies...")
+        restore_dependencies(patches)
 
 
 if __name__ == "__main__":
