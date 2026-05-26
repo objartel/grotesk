@@ -1,0 +1,39 @@
+** BUILD **
+
+From the repo root:
+`sources/build.sh`
+
+This creates a venv (if needed), installs deps, and runs build.py.
+
+Use build.py instead of running `gftools builder config.yaml` directly.
+
+The Martian Grotesk source uses Glyphs 3 Smart Components (reusable glyph
+parts with built-in variation, e.g. _tail.Descender, _part.greater). glyphsLib,
+which fontmake uses to convert .glyphs files, does not fully support Smart
+Components — it fails on the "Group" piece property and on missing Smart
+Component masters for the UltraBlack weight.
+
+build.py works around this by:
+1. Loading MartianGrotesk.glyphs via glyphsLib
+2. Stripping the "Group" key from smartComponentValues (not a real axis)
+3. Patching glyphsLib to handle missing Smart Component masters gracefully
+4. Patching ufo2ft to skip bracket-layer glyph swaps in static instances
+   (the dollar/cent bracket layers use a 2-piece alt currency-stroke; in
+   variable, the renderer draws it as "S body + 2 short stroke pieces"
+   and the dollar reads correctly. In static builds, gftools applies
+   overlap-removal on the swapped-in alt geometry, which unions the
+   pieces into the S body and collapses the dollar to a single solid
+   contour with no visible stroke. Keeping the default full-rectangle
+   stroke in statics yields the 3-contour outline the OLD font files had.
+   Variable feature-variations are untouched — that path lives in
+   fontTools.varLib._add_GSUB_feature_variations, not process_rules_swaps.)
+5. Saving a temp copy (original file is never modified)
+6. Running gftools builder on the temp copy
+
+Smart component interpolation is preserved. Only the UltraBlack weight at
+Condensed and UltraExpanded widths falls back to regular component placement
+for a few smart parts (_tail.Descender, _part.greater, _part.stroke-ii-cy).
+
+If glyphsLib adds full Smart Component support, the smart-component
+patches can be removed. The bracket-swap patch will remain needed until
+the dollar/cent alt geometry is redesigned to overlap-remove cleanly.

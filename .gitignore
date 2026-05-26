@@ -1,0 +1,25 @@
+*~
+venv
+myenv
+build.stamp
+proof
+sources/build.ninja
+sources/master_ufo/
+sources/instance_ufo/
+sources/.ninja_log
+sources/.ninja_deps
+node_modules
+package-lock.json
+package.json
+logs
+*.log
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
