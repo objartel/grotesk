@@ -2,7 +2,7 @@
 
 # Martian Grotesk
 
-Martian Grotesk is a sans-serif variable typeface family with a distinctive personality. It includes 63 static styles and is variable along two axes: weight (from Thin to Ultra Black) and width (from Condensed to Ultra Wide). Its subtly brutalist character makes it stand out visually, while styles from regular to bold are finely tuned for use in body text.
+Martian Grotesk is a sans-serif variable typeface family with a distinctive personality. It includes 63 static styles and is variable along two axes: weight (from Thin to Ultra Black) and width (from Condensed to Ultra Expanded). Its subtly brutalist character makes it stand out visually, while styles from regular to bold are finely tuned for use in body text.
 
 It’s especially optimized for on-screen use. Vertical metrics ensure that text labels appear vertically centered within UI elements. Character heights are aligned to the pixel grid for extra clarity and sharpness, and both PostScript and TrueType hinting are applied automatically.
 
@@ -19,35 +19,35 @@ Also, check out Grotesk’s monospaced sibling—[Martian Mono](https://github.c
 
 ## Styles and weights
 
-Martian Grotesk includes 63 static styles: [Thin—Ultra Black] × [Condensed—Ultra Wide].
+Martian Grotesk includes 63 static styles: [Thin—Ultra Black] × [Condensed—Ultra Expanded].
 
 <img src="./documentation/styles-matrix.png" width="830">
 
-For better legibility in design editor font pickers—where font lists are usually shown in narrow dropdowns—style names use shortened forms.
+Style names follow the Google Fonts naming spec.
 
 ### Weight
-| Code | Name         |
-|------|--------------|
-| Th   | Thin         |
-| xLt  | Extra Light  |
-| Lt   | Light        |
-| Rg   | Regular      |
-| Md   | Medium       |
-| Bd   | Bold         |
-| xBd  | Extra Bold   |
-| Bl   | Black        |
-| Ult  | Ultra Black  |
+| Name        | `font-weight` |
+|-------------|---------------|
+| Thin        | 100           |
+| ExtraLight  | 200           |
+| Light       | 300           |
+| Regular     | 400           |
+| Medium      | 500           |
+| Bold        | 700           |
+| ExtraBold   | 800           |
+| Black       | 900           |
+| UltraBlack  | 1000          |
 
 ### Width
-| Code | Name         |
-|------|--------------|
-| Cn   | Condensed    |
-| Nr   | Narrow       |
-| Std  | Standard     |
-| sWd  | Semi Wide    |
-| Wd   | Wide         |
-| xWd  | Extra Wide   |
-| uWd  | Ultra Wide   |
+| Name           | `font-stretch` |
+|----------------|----------------|
+| Condensed      | 75%            |
+| SemiCondensed  | 87.5%          |
+| Normal         | 100%           |
+| SemiExpanded   | 112.5%         |
+| Expanded       | 125%           |
+| ExtraExpanded  | 150%           |
+| UltraExpanded  | 200%           |
 
 ## Design
 
@@ -83,25 +83,29 @@ Stem widths are specifically designed to stay consistent within each weight. For
 
 ## Web use
 
-Use the following code to embed:
+Variable font (recommended — covers all 63 styles in a single file):
 
 ```css
 @font-face {
-  font-family: Martian Grotesk;
+  font-family: "Martian Grotesk";
   font-display: swap;
-  src: url('front/fonts/...') format('woff2');
-  font-weight: 100 1000; /* Th: 100, xLt: 200, Lt: 300, Rg: 400, Md: 500, (no 600), Bd: 700, xBd: 800, Bl: 900, Ult: 1000 */
-  font-stretch: 75% 200%; /* Cn: 75%,  Nr: 87.5%,  Std: 100%,  sWd: 112.5%,  Wd: 125%,  xWd: 150%,  uWd: 200% */
-}
-
-@font-face {
-  font-family: Martian Mono;
-  font-display: swap;
-  src: url('front/fonts/...') format('woff2');
-  font-weight: 100 800; /* Th: 100, xLt: 200, Lt: 300, Rg: 400, Md: 500, (no 600), Bd: 700, xBd: 800 */
-  font-stretch: 75% 112.5%; /* Cn: 75%,  Nr: 87.5%,  Std: 100%,  sWd: 112.5% */
+  src: url("fonts/webfonts/MartianGrotesk[wdth,wght].woff2") format("woff2-variations");
+  font-weight: 100 1000;
+  font-stretch: 75% 200%;
 }
 ```
+
+Static styles ship under `fonts/ttf/`, `fonts/otf/`, and `fonts/webfonts/` (woff2) with GF-compatible filenames, e.g. `MartianGrotesk-Regular.woff2`, `MartianGroteskCondensed-Bold.woff2`, `MartianGroteskUltraExpanded-UltraBlack.woff2`.
+
+## Build
+
+Binaries under `fonts/` are produced by the pipeline in `sources/`:
+
+```bash
+sources/build.sh
+```
+
+The script sets up a venv with pinned `gftools` / `glyphsLib` / `fontmake` (see `sources/requirements.txt`), then runs `build.py`, which wraps `gftools builder` (`sources/config.yaml`) with two upstream workarounds — Glyphs 3 Smart Components and the static-instance bracket-layer swap for cent/dollar. The source `.glyphs` file is never mutated; the pipeline works on a temp copy. See `sources/Instructions.txt` for details.
 
 ## Language support
 
